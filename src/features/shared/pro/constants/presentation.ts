@@ -17,6 +17,11 @@ export const VAULT_PRESENTATION: Record<string, VaultPresentation> = {
     imageSrc: proImageUrl("torre-cartago.jpg"),
     gradient: "from-[#3E4A5C] via-[#232A33] to-[#121417]",
   },
+  // Drying Plant for Ana Coffee
+  CBUHVDZZIZH3AIXPCE635XOUBGE5G7QCKQIJPTRDT5IXKWA7X5K53PRO: {
+    imageSrc: "/pro/ana-coffee.jpg",
+    gradient: "from-[#4A3A2C] via-[#2A211A] to-[#131110]",
+  },
 };
 
 export const FALLBACK_PRESENTATION: VaultPresentation = {
