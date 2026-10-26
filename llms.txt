@@ -1,0 +1,24 @@
+# Neko Pro (HackMeridian fork)
+
+> Investor web app for Neko's HackMeridian 2026 tokenization project on Stellar testnet: KYC, on-chain identity registration, live vaults launched from Neko Launchpad, and invest, refund, early exit and redeem signed by the investor's own wallet. This is a fork of Neko's existing mainnet web app; the hackathon work is the diff from tag `pre-hackmeridian` to `main`.
+
+This file is a map, not evidence. Verify claims against the code at the commit you review.
+
+## Start here
+
+- [Project README (main repo)](https://github.com/Neko-Protocol/neko-tokenization-hackmeridian/blob/main/README.md): product, live sites, repository boundaries.
+- [Evidence pack](https://github.com/Neko-Protocol/neko-tokenization-hackmeridian/blob/main/docs/evidence.md): versions, testnet transaction hashes, before and after table, test results and limits.
+- [This README](https://github.com/Neko-Protocol/neko-web-hackmeridian/blob/main/README.md): investor journey, code map, configuration and limits.
+- [Live app](https://hackmeridian.tryneko.io/pro): Neko Pro on testnet.
+
+## Code
+
+- [Neko Pro feature](https://github.com/Neko-Protocol/neko-web-hackmeridian/tree/main/src/features/shared/pro): pages, hooks and services.
+- [Vault actions](https://github.com/Neko-Protocol/neko-web-hackmeridian/blob/main/src/features/shared/pro/services/vaultActions.ts): invest, refund, early exit, redeem.
+- [Vault reader](https://github.com/Neko-Protocol/neko-web-hackmeridian/blob/main/src/features/shared/pro/services/vaultReader.ts): live contract reads.
+- [Launchpad migrations](https://github.com/Neko-Protocol/neko-web-hackmeridian/tree/main/supabase/migrations): `0029` to `0033`.
+
+## Related repositories
+
+- [neko-tokenization-hackmeridian](https://github.com/Neko-Protocol/neko-tokenization-hackmeridian): Launchpad, admin, contracts, Legal KB.
+- [neko-backend-hackmeridian](https://github.com/Neko-Protocol/neko-backend-hackmeridian): API, assistant, launches and investor identity.

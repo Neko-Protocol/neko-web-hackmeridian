@@ -171,10 +171,11 @@ const MyPositions: React.FC = () => {
   const unified = [...aggUnified];
 
   // ── USD prices for all unique asset codes ──────────────────────────────────
+  const unifiedKeys = unified.map((p) => p.key).join(",");
   const allCodes = useMemo(
     () => [...new Set(unified.map((p) => p.assetCode))],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [unified.map((p) => p.key).join(",")]
+    [unifiedKeys]
   );
 
   const priceQueries = useQueries({
@@ -187,6 +188,7 @@ const MyPositions: React.FC = () => {
     })),
   });
 
+  const priceValuesKey = priceQueries.map((q) => q.data?.price).join(",");
   const priceMap = useMemo(() => {
     const map = new Map<string, number>();
     allCodes.forEach((code, i) => {
@@ -194,7 +196,7 @@ const MyPositions: React.FC = () => {
     });
     return map;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allCodes, priceQueries.map((q) => q.data?.price).join(",")]);
+  }, [allCodes, priceValuesKey]);
 
   const colSpan = 6;
 

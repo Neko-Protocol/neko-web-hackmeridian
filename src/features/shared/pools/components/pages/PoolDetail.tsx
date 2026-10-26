@@ -496,13 +496,12 @@ const PoolDetail: React.FC<PoolDetailProps> = ({ params }) => {
     [withdrawableRaw, decimals]
   );
 
-  const secondaryWithdrawableRaw = useMemo(() => {
-    if (!position || !pool || !isAmmPairPool) return 0n;
-    const underlyingAmountsRaw = position.metadata?.underlyingAmountsRaw as
-      | string[]
-      | undefined;
-    return BigInt(underlyingAmountsRaw?.[1] ?? "0");
-  }, [pool, position, isAmmPairPool]);
+  const secondaryUnderlyingAmountsRaw = position?.metadata
+    ?.underlyingAmountsRaw as string[] | undefined;
+  const secondaryWithdrawableRaw =
+    position && isAmmPairPool
+      ? BigInt(secondaryUnderlyingAmountsRaw?.[1] ?? "0")
+      : 0n;
 
   const secondaryDecimals = pool?.tokens[1]?.decimals ?? 7;
   const secondaryWithdrawableFormatted = useMemo(

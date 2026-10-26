@@ -38,12 +38,16 @@ const YourPositions: React.FC = () => {
   const { positions: vaultPositions, isLoading: vaultLoading } =
     useDashboardVaultPositions();
 
+  const vaultViewIdsKey = vaultPositions.map((p) => p.vault.id).join(",");
   const vaultViews = useMemo(
     () => vaultPositions.map((p) => p.vault),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [vaultPositions.map((p) => p.vault.id).join(",")]
+    [vaultViewIdsKey]
   );
 
+  const vaultBalancesKey = vaultPositions
+    .map((p) => `${p.vault.id}:${p.userShares}`)
+    .join(",");
   const vaultBalances = useMemo(() => {
     const map: Record<string, bigint> = {};
     for (const { vault, userShares } of vaultPositions) {
@@ -51,7 +55,7 @@ const YourPositions: React.FC = () => {
     }
     return map;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [vaultPositions.map((p) => `${p.vault.id}:${p.userShares}`).join(",")]);
+  }, [vaultBalancesKey]);
   const { positions: bearingYieldPositions, isLoading: bearingLoading } =
     useBearingYieldPositions(vaultPositions);
   const { data: etherfuseYields } = useEtherfuseYields();

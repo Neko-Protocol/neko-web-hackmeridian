@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useWallet } from "@/hooks/useWallet";
@@ -28,6 +28,7 @@ export function useLend() {
   const t = useTranslations("sharedLending.toasts");
   const getErrorMessage = useApiErrorMessage();
   const searchParams = useSearchParams();
+  const supplyFromUrl = searchParams.get("supply")?.trim() ?? "";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeposit, setIsDeposit] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,12 +36,13 @@ export function useLend() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [protocolFilter, setProtocolFilterState] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(supplyFromUrl);
+  const [prevSupplyFromUrl, setPrevSupplyFromUrl] = useState(supplyFromUrl);
 
-  useEffect(() => {
-    const q = searchParams.get("supply")?.trim();
-    if (q) setSearchQuery(q);
-  }, [searchParams]);
+  if (supplyFromUrl !== prevSupplyFromUrl) {
+    setPrevSupplyFromUrl(supplyFromUrl);
+    if (supplyFromUrl) setSearchQuery(supplyFromUrl);
+  }
 
   const { address } = useWallet();
   const { addNotification } = useToast();

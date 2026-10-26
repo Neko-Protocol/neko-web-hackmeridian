@@ -1,9 +1,31 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useSyncExternalStore } from "react";
 import Image from "next/image";
 import type { VaultAsset } from "../../types/vault";
 import { resolveAssetIcon } from "../../utils/vault";
+
+function subscribeMaxSm(onChange: () => void) {
+  const mq = window.matchMedia("(max-width: 639px)");
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+
+function getMaxSmSnapshot() {
+  return window.matchMedia("(max-width: 639px)").matches;
+}
+
+function getMaxSmServerSnapshot() {
+  return false;
+}
+
+function useIsMobile() {
+  return useSyncExternalStore(
+    subscribeMaxSm,
+    getMaxSmSnapshot,
+    getMaxSmServerSnapshot
+  );
+}
 
 interface VaultAssetIllustrationsProps {
   collateralAssets: VaultAsset[];
@@ -58,15 +80,7 @@ function IllustrationSlot({ src, alt, style }: IllustrationSlotProps) {
 export const VaultAssetIllustrations: React.FC<
   VaultAssetIllustrationsProps
 > = ({ collateralAssets, isLight, issuerIconSrc }) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const isMobile = useIsMobile();
 
   const DUAL_LEFT = isMobile ? DUAL_LEFT_M : DUAL_LEFT_D;
   const DUAL_RIGHT = isMobile ? DUAL_RIGHT_M : DUAL_RIGHT_D;
