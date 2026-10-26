@@ -47,3 +47,7 @@ The proxy reads `BACKEND_INTERNAL_URL` (not `BACKEND_URL`, which the Launchpad a
 - No compliance modules (investor count, country rules) are registered on the token yet; the contract enforces identity, and the vault caps the raise.
 - Lint reports 0 errors and 74 warnings in older, pre-event parts of the app; warnings are tracked as debt from the fork.
 - No CI workflow or root license in this repository yet (pending a decision).
+
+## License
+
+MIT, see [LICENSE](LICENSE).
