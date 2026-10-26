@@ -26,18 +26,15 @@ function UnsubscribeCard({
 
 function UnsubscribeContent() {
   const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const ran = useRef(false);
-  const [status, setStatus] = useState<Status>("loading");
+  const [status, setStatus] = useState<Status>(() =>
+    token ? "loading" : "error"
+  );
 
   useEffect(() => {
-    if (ran.current) return;
+    if (!token || ran.current) return;
     ran.current = true;
-
-    const token = searchParams.get("token");
-    if (!token) {
-      setStatus("error");
-      return;
-    }
 
     void (async () => {
       try {
@@ -47,7 +44,7 @@ function UnsubscribeContent() {
         setStatus("error");
       }
     })();
-  }, [searchParams]);
+  }, [token]);
 
   if (status === "loading") {
     return (

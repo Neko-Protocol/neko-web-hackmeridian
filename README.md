@@ -45,5 +45,5 @@ The proxy reads `BACKEND_INTERNAL_URL` (not `BACKEND_URL`, which the Launchpad a
 
 - Testnet only. The vaults use test USDC from the platform issuer.
 - No compliance modules (investor count, country rules) are registered on the token yet; the contract enforces identity, and the vault caps the raise.
-- Lint reports errors in older, pre-event parts of the app; they are tracked as debt from the fork.
-- No CI workflow in this repository yet.
+- Lint reports 0 errors and 74 warnings in older, pre-event parts of the app; warnings are tracked as debt from the fork.
+- No CI workflow or root license in this repository yet (pending a decision).

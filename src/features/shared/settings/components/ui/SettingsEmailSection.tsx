@@ -27,22 +27,28 @@ export function SettingsEmailSection({
   const { addNotification } = useToast();
 
   const [user, setUser] = useState<UserPublic | null>(null);
-  const [loading, setLoading] = useState(false);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [prevAddress, setPrevAddress] = useState(address);
+  const [loadedForAddress, setLoadedForAddress] = useState<string | null>(null);
+
+  if (address !== prevAddress) {
+    setPrevAddress(address);
+    setUser(null);
+    setDraft("");
+    setLoadedForAddress(null);
+  }
+
+  const loading = Boolean(address && loadedForAddress !== address);
 
   useEffect(() => {
-    if (!address) {
-      setUser(null);
-      return;
-    }
+    if (!address) return;
     let cancelled = false;
-    setLoading(true);
     void usersService.get(address).then((u) => {
       if (cancelled) return;
       setUser(u);
       setDraft(u?.email ?? "");
-      setLoading(false);
+      setLoadedForAddress(address);
     });
     return () => {
       cancelled = true;
