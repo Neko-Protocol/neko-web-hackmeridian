@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { BannerPage } from "@/components/ui/BannerPage";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { proImageUrl } from "@/lib/config/storage.config";
 import { useProVaults } from "../../hooks/useProVaults";
 import type { VaultCategory } from "../../types/vault";
 import { VaultCard } from "../ui/VaultCard";
@@ -78,8 +79,12 @@ export function ProOpportunitiesPage() {
         title={t("title")}
         subtitle={t("subtitle")}
         badge={t("badge")}
-        imageSrc="/banners/borrow.svg"
+        imageSrc={proImageUrl("banners/pro.png")}
         imageAlt={t("imageAlt")}
+        // Wider than the default 55% so the illustration fills the banner's
+        // height and its pedestal reads in full, rather than sitting small in
+        // the middle.
+        imageLayoutClassName="right-0 top-[11%] h-full w-[75%]"
         className="mb-8"
       />
 
